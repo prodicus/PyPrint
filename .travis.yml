@@ -24,7 +24,8 @@ env:
 install:
   - bash .ci/deps.${TRAVIS_OS_NAME}.sh
   - bash .ci/deps.pyenv.sh
-  - pip install pytest
+  - pip install pytest pytest-cov
 
 script:
-  - python setup.py test
+  - python setup.py test -a "--cov=pyprint"
+  - bash <(curl -s https://codecov.io/bash)
