@@ -1,0 +1,30 @@
+language: generic
+
+os:
+  - linux
+  - osx
+
+sudo: false
+
+cache:
+  directories:
+    - $PYENV_ROOT
+
+env:
+  global:
+    - PYENV_ROOT=~/.pyenv
+    - PATH=$PYENV_ROOT/shims:$PATH:$PYENV_ROOT/bin
+  matrix:
+    - PYTHON_VERSION=3.5.0b3
+    - PYTHON_VERSION=3.4.2
+    - PYTHON_VERSION=3.3.5
+    - PYTHON_VERSION=3.2.5
+    - PYTHON_VERSION=pypy3-2.4.0
+
+install:
+  - bash .ci/deps.${TRAVIS_OS_NAME}.sh
+  - bash .ci/deps.pyenv.sh
+  - pip install pytest
+
+script:
+  - python setup.py test
